@@ -1,0 +1,105 @@
+[options]
+allow_bold = true
+#audible_bell = false
+bold_is_bright = true
+#cell_height_scale = 1.0
+#cell_width_scale = 1.0
+clickable_url = true
+dynamic_title = true
+font = Hack Nerd Font 11
+#fullscreen = true
+#icon_name = terminalRegular
+#mouse_autohide = false
+#scroll_on_output = false
+scroll_on_keystroke = true
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+#scrollback_lines = 10000
+scrollback_lines = -1
+#search_wrap = true
+#urgent_on_bell = true
+hyperlinks = true
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+browser = xdg-open
+
+# "system", "on" or "off"
+#cursor_blink = system
+
+# "block", "underline" or "ibeam"
+#cursor_shape = block
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# "off", "left" or "right"
+#scrollbar = off
+
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+[colors]
+# Base16 Dracula
+# Author: Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)
+
+foreground          = #e9e9f4
+foreground_bold     = #f1f2f8
+cursor              = #f1f2f8
+cursor_foreground   = #282936
+background          = rgba(40, 41, 54, 0.96)
+
+# 16 color space
+
+# Black, Gray, Silver, White
+color0  = #282936
+color8  = #4d4f68
+color7  = #e9e9f4
+color15 = #f7f7fb
+
+# Red
+color1  = #ea51b2
+color9  = #ea51b2
+
+# Green
+color2  = #00f769
+color10 = #00f769
+
+# Yellow
+color3  = #ebff87
+color11 = #ebff87
+
+# Blue
+color4  = #62d6e8
+color12 = #62d6e8
+
+# Purple
+color5  = #b45bcf
+color13 = #b45bcf
+
+# Teal
+color6  = #a1efe4
+color14 = #a1efe4
+
+# Extra colors
+color16 = #b45bcf
+color17 = #00f769
+color18 = #3a3c4e
+color19 = #626483
+color20 = #62d6e8
+color21 = #f1f2f8
+
+# vim: ft=dosini cms=#%s

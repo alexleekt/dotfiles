@@ -1,0 +1,288 @@
+#
+# Read `man 5 sway` for a complete reference.
+#
+
+#
+# Variables
+#
+    set $winKeyCode 133
+    set $mod Mod4
+    set $left h
+    set $down j
+    set $up k
+    set $right l
+    set $term termite -d $(~/.config/sway/contrib/focused-cwd.sh termite)
+    set $menu rofi -show drun -show-icons
+    set $lock swaylock-blur
+    set $wallpaper ~/Pictures/Wallpapers/20110703_133637__alexleekt_5DM2.jpg
+    set $lockTimeout 600
+    set $monitorTimeout 900
+
+#
+# Autostarts
+#
+    exec chromium
+    exec mako 2>&1 >/tmp/mako.log
+    exec kanshi 2>&1 >/tmp/kanshi.log
+    exec redshift -c ~/.config/redshift/config 2>&1 >/tmp/redshift.log
+    exec python ~/.config/sway/contrib/inactive-windows-transparency.py
+    exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 2>&1 >/tmp/polkit-gnome-authentication-agent-1.log
+    exec play-with-mpv 2>&1 >/dev/null
+
+#
+# Output configuration
+#
+    # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+    output * bg $wallpaper fill
+    #
+    # Example configuration:
+    #
+    #   output HDMI-A-1 resolution 1920x1080 position 1920,0
+    #
+    # You can get the names of your outputs by running: swaymsg -t get_outputs
+    #
+    # HiDPI
+    #
+    # Set your displays scale factor with the output command in your config file.
+    # The scale factor can be fractional, but it is usually 2 for HiDPI screens.
+    #
+    #   output 'Unknown 0x173D 0x00000000' scale 1
+
+#
+# Idle
+#
+    # This will lock your screen after N seconds of inactivity, then turn off
+    # your displays after another M seconds, and turn your screens back on when
+    # resumed. It will also lock your screen before your computer goes to sleep.
+    exec swayidle -w \
+        timeout $lockTimeout '$lock' \
+        timeout $monitorTimeout 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"' \
+        before-sleep '$lock'
+
+#
+# Input
+#
+    # You can get the names of your inputs by running: swaymsg -t get_inputs
+    # Read `man 5 sway-input` for more information about this section.
+    input "2:7:SynPS/2_Synaptics_TouchPad" {
+        dwt enabled
+        tap enabled
+        natural_scroll enabled
+        middle_emulation false
+    }
+
+    # hide mouse on inactivity
+    seat * hide_cursor 1000
+
+    # focus_follows_mouse no
+
+#
+# Key bindings
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # application launcher
+    bindsym $mod+d exec $menu
+    bindsym $mod+space exec $menu
+    # bindcode --release $winKeyCode exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # screenshot part of the screen to keyboard
+    bindsym --release Print exec grim -g \"$(slurp)" - | wl-copy
+
+    bindsym $mod+tab workspace next_on_output
+    bindsym $mod+Shift+tab workspace prev_on_output
+
+    # disable middle mouse click (paste action in gtk3)
+    bindsym --whole-window button2 exec false
+
+#
+# Moving around
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+#
+# Workspaces
+#
+    # workspaces (icons set in waybar)
+    set $ws1    1
+    set $ws2    2
+    set $ws3    3
+    set $ws4    4
+    set $ws5    5
+    set $ws6    6
+    set $ws7    7
+    set $ws8    8
+    set $ws9    9
+    set $ws10   10
+
+    # Switch to workspace
+    bindsym $mod+1 workspace $ws1
+    bindsym $mod+2 workspace $ws2
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws8
+    bindsym $mod+9 workspace $ws9
+    bindsym $mod+0 workspace $ws10
+
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace $ws1
+    bindsym $mod+Shift+2 move container to workspace $ws2
+    bindsym $mod+Shift+3 move container to workspace $ws3
+    bindsym $mod+Shift+4 move container to workspace $ws4
+    bindsym $mod+Shift+5 move container to workspace $ws5
+    bindsym $mod+Shift+6 move container to workspace $ws6
+    bindsym $mod+Shift+7 move container to workspace $ws7
+    bindsym $mod+Shift+8 move container to workspace $ws8
+    bindsym $mod+Shift+9 move container to workspace $ws9
+    bindsym $mod+Shift+0 move container to workspace $ws10
+
+#
+# Layout
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    # bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+    for_window [window_role="About"] floating enable
+    for_window [window_role="bubble"] floating enable
+    for_window [window_role="pop-up"] floating enable
+    for_window [window_role="Preferences"] floating enable
+    for_window [window_role="task_dialog"] floating enable
+    for_window [window_type="dialog"] floating enable
+    for_window [window_type="menu"] floating enable
+
+    popup_during_fullscreen smart
+
+#
+# Decorations
+#
+    default_border none
+    default_floating_border none
+    hide_edge_borders smart
+
+#
+# Scratchpad
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+
+
+# Resizing containers
+#
+    mode "resize" {
+        bindsym $left resize shrink width 10px
+        bindsym $down resize grow height 10px
+        bindsym $up resize shrink height 10px
+        bindsym $right resize grow width 10px
+        bindsym Left resize shrink width 10px
+        bindsym Down resize grow height 10px
+        bindsym Up resize shrink height 10px
+        bindsym Right resize grow width 10px
+
+        # Return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+    bindsym $mod+r mode "resize"
+
+#
+# Media keys
+#
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    set $brillo exec /usr/bin/brillo -equ 150000
+    bindsym XF86MonBrightnessDown exec $brillo -U 5
+    bindsym XF86MonBrightnessUp exec $brillo -A 5
+
+#
+# Exit Menu
+#
+    set $mode_system System: (l) lock, (e) logout, (s) suspend, (r) reboot, (S) shutdown, (R) UEFI
+    mode "$mode_system" {
+        bindsym l exec $lock, mode "default"
+        bindsym e exit
+        bindsym s exec --no-startup-id systemctl suspend, mode "default"
+        bindsym r exec --no-startup-id systemctl reboot, mode "default"
+        bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+        bindsym Shift+r exec --no-startup-id systemctl reboot --firmware-setup, mode "default"
+
+        # return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+    bindsym $mod+Shift+e mode "$mode_system"
+
+#
+# System Bar
+#
+    bar {
+        swaybar_command waybar
+    }
+
+include /etc/sway/config.d/*

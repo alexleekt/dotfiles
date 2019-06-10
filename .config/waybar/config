@@ -1,0 +1,125 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": [
+    "custom/hostname",
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+  ],
+  "modules-right": [
+    "idle_inhibitor",
+    "tray",
+    "cpu",
+    "temperature",
+    "memory",
+    "backlight",
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock"
+  ],
+  "custom/hostname": {
+    "format": " {}",
+    "exec": "hostname"
+  },
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+  "sway/mode": {
+    "format": " {}"
+  },
+  "sway/window": {
+    "format": " {}"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "tray": {
+    //"icon-size": 21,
+    "spacing": 8
+  },
+  "clock": {
+    "format": "{:%Y-%m-%d | %H:%M} ",
+    "on-click-right": "wl-copy $(date '+%Y-%m-%d %T')",
+    "tooltip": false
+  },
+  "cpu": {
+    "format": "{usage}% 龍",
+    "tooltip": false,
+    "interval": 1
+  },
+  "memory": {
+    "format": "{}% ",
+    "tooltip": false
+  },
+  "temperature": {
+    "interval": 5,
+    "critical-threshold": 60,
+    "format-critical": "{temperatureC}°C ",
+    "format": "{temperatureC}°C "
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", ""]
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {time} {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 5
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{ifname} {essid} {ipaddr} ({signalStrength}%) ",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "on-click-right": "wl-copy $(ip address show up scope global | grep inet | head -n1 | cut -d/ -f 1 | tr -d [:space:] | cut -c5-)"  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphones": "",
+      "handsfree": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  }
+}
