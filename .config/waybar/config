@@ -92,20 +92,18 @@
     "format-charging": "{capacity}% ",
     "format-plugged": "{capacity}% ",
     "format-alt": "{time} {icon}",
-    // "format-good": "", // An empty format will hide the module
-    // "format-full": "",
     "format-icons": ["", "", "", "", ""],
     "interval": 5
   },
   "network": {
-    // "interface": "wlp2*", // (Optional) To force the use of this interface
     "format-wifi": "{ifname} {essid} {ipaddr} ({signalStrength}%) ",
     "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "Disconnected ⚠",
+    "interval": 15,
     "on-click-right": "wl-copy $(ip address show up scope global | grep inet | head -n1 | cut -d/ -f 1 | tr -d [:space:] | cut -c5-)"  },
   "pulseaudio": {
-    // "scroll-step": 1, // %, can be a float
+    "scroll-step": 2, // %, can be a float
     "format": "{volume}% {icon} {format_source}",
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-muted": " {format_source}",
@@ -120,6 +118,7 @@
       "car": "",
       "default": ["", "", ""]
     },
+    "tooltip": false,
     "on-click": "pavucontrol"
   }
 }
