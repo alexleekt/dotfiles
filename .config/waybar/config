@@ -18,8 +18,15 @@
     "pulseaudio",
     "network",
     "battery",
+    "custom/darksky",
     "clock"
   ],
+  "custom/darksky": {
+    "format": "{}",
+    "interval": 1800,
+    "exec": "~/.config/waybar/modules/darksky/darksky.sh ~/.config/waybar/modules/darksky/config.json",
+    "exec-if": "ping 8.8.8.8 -c1"
+  },
   "custom/hostname": {
     "format": " {}",
     "exec": "hostname"
