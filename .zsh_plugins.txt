@@ -1,0 +1,10 @@
+arzzen/calc.plugin.zsh
+bhilburn/powerlevel9k
+robbyrussell/oh-my-zsh path:plugins/archlinux
+robbyrussell/oh-my-zsh path:plugins/docker
+robbyrussell/oh-my-zsh path:plugins/git
+wting/autojump
+zdharma/fast-syntax-highlighting
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search
+zuxfoucault/colored-man-pages_mod
