@@ -12,11 +12,13 @@
     set $up k
     set $right l
     set $term termite -d $(~/.config/sway/contrib/focused-cwd.sh termite)
-    set $menu rofi -show drun -show-icons
+    set $menu eval "$(dot-desktop "$(dot-desktop | wldash)")"
     set $lock swaylock-blur
     set $wallpaper ~/Pictures/Wallpapers/20110703_133637__alexleekt_5DM2.jpg
-    set $lockTimeout 600
-    set $monitorTimeout 900
+    set $lockTimeout 1200
+    set $monitorTimeout 1800
+    set $windowInnerGap 0
+    set $windowOuterGap 0
 
 #
 # Autostarts
@@ -25,9 +27,8 @@
     exec mako 2>&1 >/tmp/mako.log
     exec kanshi 2>&1 >/tmp/kanshi.log
     exec redshift -c ~/.config/redshift/config 2>&1 >/tmp/redshift.log
-    exec python ~/.config/sway/contrib/inactive-windows-transparency.py
     exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 2>&1 >/tmp/polkit-gnome-authentication-agent-1.log
-    exec play-with-mpv 2>&1 >/dev/null
+    # exec python ~/.config/sway/contrib/inactive-windows-transparency.py
 
 #
 # Theme
@@ -43,6 +44,7 @@
 #
     # hide mouse on inactivity
     seat * hide_cursor 1000
+    # focus_follows_mouse no
 
 #
 # Output configuration
@@ -79,14 +81,14 @@
 # Key bindings
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # application launcher
-    bindsym $mod+d exec $menu
-    bindsym $mod+space exec $menu
+    # bindsym $mod+d exec $menu
+    bindsym $mod+Shift+space exec $menu
     # bindcode --release $winKeyCode exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -189,7 +191,7 @@
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+f floating toggle
 
     # Swap focus between the tiling area and the floating area
     # bindsym $mod+space focus mode_toggle
@@ -204,12 +206,18 @@
     for_window [window_role="task_dialog"] floating enable
     for_window [window_type="dialog"] floating enable
     for_window [window_type="menu"] floating enable
+    for_window [title="Authy"] floating enable
+    for_window [class="vlc"] floating enable
+    for_window [app_id="org.gnome.Nautilus"] floating enable
+    for_window [class="Chromium" window_role="pop-up"] floating enable
 
     popup_during_fullscreen smart
 
 #
 # Decorations
 #
+    gaps inner $windowInnerGap
+    gaps outer $windowOuterGap
     default_border none
     default_floating_border none
     hide_edge_borders smart
@@ -221,11 +229,11 @@
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    # bindsym $mod+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    # bindsym $mod+minus scratchpad show
 
 
 # Resizing containers
